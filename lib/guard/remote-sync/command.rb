@@ -35,6 +35,7 @@ module Guard
       end
 
       def sync
+        @options[:dry_run] = false
         Compat::UI.info "Guard::RemoteSync `#{@command}`"
         run_command @command
       end
@@ -72,6 +73,11 @@ module Guard
           end
         end
         $stderr.puts "\t#{BOLD}#{YELLOW}Result Code #{exit_value}#{CLEAR}"
+
+        unless @options[:dry_run] # We don't want a notification on dry run
+          Guard::Compat::UI.notify("Rsync complete", title: 'Rsync complete', image: exit_value == '0' ? :success : :failed)
+        end
+
         !wait_thread.nil? ? exit_value : nil
       end
 

@@ -49,7 +49,7 @@ module Guard
     def start
       throw([:task_has_failed], "Guard::RemoteSync options invalid") unless options_valid?
       Guard::Compat::UI.info "Guard::RemoteSync started in source directory '#{File.expand_path @source.directory}'"
-      Guard::Compat::UI.notify("Guard::RemoteSync is running in directory #{File.expand_path @source.directory}", notifier_options)
+      Guard::Compat::UI.info("Guard::RemoteSync is running in directory #{File.expand_path @source.directory}", notifier_options)
       if @command.test
         @command.sync if options[:sync_on_start]
       else
@@ -63,7 +63,7 @@ module Guard
 
     def stop
       Guard::Compat::UI.info "Guard::RemoteSync stopped."
-      Guard::Compat::UI.notify("Guard::RemoteSync stopped.",notifier_options)
+      Guard::Compat::UI.info("Guard::RemoteSync stopped.",notifier_options)
     end
 
     # Called when `reload|r|z + enter` is pressed.
